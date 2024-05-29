@@ -1,43 +1,27 @@
-import 'package:expense/provider/provider.dart';
+import 'package:expense/src/application/services/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../data/hive.dart';
+import '../../infrastructure/database/hive_repository.dart';
 
-class AddExpenseScreen extends StatefulWidget {
+class EditExpenseScreen extends StatefulWidget {
+  final Expense expense;
+
+  const EditExpenseScreen({super.key, required this.expense});
+
   @override
-  _AddExpenseScreenState createState() => _AddExpenseScreenState();
+  _EditExpenseScreenState createState() => _EditExpenseScreenState();
 }
 
-class _AddExpenseScreenState extends State<AddExpenseScreen> {
+class _EditExpenseScreenState extends State<EditExpenseScreen> {
   final _formKey = GlobalKey<FormState>();
+  late String _description;
+  late double _amount;
+  late DateTime _date;
   final _descriptionFocusNode = FocusNode();
   final _amountFocusNode = FocusNode();
-  String _description = '';
-  double _amount = 0.0;
-  DateTime _date = DateTime.now();
-
-  void _saveExpense() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      final expense = Expense(
-        id: DateTime.now().toString(),
-        amount: _amount,
-        date: _date,
-        description: _description,
-        userId:FirebaseAuth.instance.currentUser!.uid
-      );
-      Provider.of<ExpenseProvider>(context, listen: false).addExpense(expense);
-      Navigator.of(context).pop();
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Expense saved successfully!'),
-            duration: Duration(seconds: 2),
-          ));
-    }
-  }
   @override
   void dispose() {
     _descriptionFocusNode.dispose();
@@ -45,17 +29,40 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     super.dispose();
   }
   @override
+  void initState() {
+    super.initState();
+    _description = widget.expense.description;
+    _amount = widget.expense.amount;
+    _date = widget.expense.date;
+  }
+
+  void _saveExpense() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      final updatedExpense = Expense(
+        id: widget.expense.id,
+        amount: _amount,
+        date: _date,
+        description: _description,
+        userId: FirebaseAuth.instance.currentUser!.uid
+      );
+      Provider.of<ExpenseProvider>(context, listen: false)
+          .updateExpense(updatedExpense);
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     var mqh = MediaQuery.of(context).size.height;
     var mqw = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 30,
         leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back,size: 22,color: Colors.white,)),
         title: const Text(
-          'Add Expense',
+          'Edit Expense',
           style: TextStyle(fontSize: 17,color: Colors.white,),
         ),
         actions: [
@@ -81,13 +88,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 height: mqh * .45,
                 width: mqw * .9,
                 child: SvgPicture.asset(
-                  "assets/svg/add.svg",
+                  "assets/svg/edit.svg",
                   fit: BoxFit.contain,
                 ),
               ),
-
               const Text(
-                "Please Add Your \nExpense",
+                "Please Edit Your \nExpense",
                 style: TextStyle(
                     color: Colors.black, fontSize: 28, fontFamily: "Poppins",fontWeight: FontWeight.w500),
               ),
@@ -95,13 +101,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 height: mqh * .03,
               ),
               TextFormField(
+                initialValue: _description,
                 focusNode: _descriptionFocusNode,
                 decoration: InputDecoration(
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   labelText: 'Description',
                   labelStyle:
-                      TextStyle(color: Colors.grey.shade600, fontSize: 15),
+                  TextStyle(color: Colors.grey.shade600, fontSize: 15),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF283593), width: 2),
                   ),
@@ -130,13 +137,14 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 height: mqh * .03,
               ),
               TextFormField(
+                initialValue: _amount.toString(),
                 focusNode: _amountFocusNode,
                 decoration: InputDecoration(
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   labelText: 'Amount',
                   labelStyle:
-                      TextStyle(color: Colors.grey.shade600, fontSize: 15),
+                  TextStyle(color: Colors.grey.shade600, fontSize: 15),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF283593), width: 2),
                   ),
@@ -158,7 +166,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   }
                   return null;
                 },
-              )
+              ),
+
             ],
           ),
         ),

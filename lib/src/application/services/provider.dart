@@ -1,7 +1,7 @@
-import 'package:expense/provider/repository.dart';
+import 'package:expense/src/domain/repositories/expense_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../data/hive.dart';
+import '../../infrastructure/database/hive_repository.dart';
 
 class ExpenseProvider with ChangeNotifier {
   final ExpenseRepository repository;

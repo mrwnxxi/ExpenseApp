@@ -1,8 +1,8 @@
-import 'package:expense/provider/provider.dart';
-import 'package:expense/provider/repository.dart';
-import 'package:expense/view/expense_screen.dart';
-import 'package:expense/view/login.dart';
-import 'package:expense/view/registration.dart';
+import 'package:expense/src/application/services/provider.dart';
+import 'package:expense/src/domain/repositories/expense_repository.dart';
+import 'package:expense/src/presentation/ui/expense_screen.dart';
+import 'package:expense/src/presentation/ui/login.dart';
+import 'package:expense/src/presentation/ui/registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'data/hive.dart';
+import 'src/infrastructure/database/hive_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

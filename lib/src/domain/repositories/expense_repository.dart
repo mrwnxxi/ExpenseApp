@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../data/hive.dart';
+import '../../infrastructure/database/hive_repository.dart';
 
 abstract class ExpenseRepository {
   Future<void> addExpense(Expense expense,String uid);

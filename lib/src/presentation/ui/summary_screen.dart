@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:expense/provider/provider.dart';
+import 'package:expense/src/application/services/provider.dart';
 
 import 'add_expense.dart';
+
 
 class ExpenseSummaryScreen extends StatelessWidget {
   const ExpenseSummaryScreen({super.key});

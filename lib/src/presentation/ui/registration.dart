@@ -1,6 +1,6 @@
-import 'package:expense/global/common/toast.dart';
+import 'package:expense/src/utils/toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:expense/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:expense/src/application/services/firebase_auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

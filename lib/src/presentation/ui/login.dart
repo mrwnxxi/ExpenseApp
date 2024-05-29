@@ -1,12 +1,12 @@
-import 'package:expense/global/common/toast.dart';
+import 'package:expense/src/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/provider.dart';
-import '../user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import '../../application/services/firebase_auth_services.dart';
+import '../../application/services/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

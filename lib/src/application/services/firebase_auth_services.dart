@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../global/common/toast.dart';
+import '../../utils/toast.dart';
 class FirebaseAuthService {
 
   FirebaseAuth _auth = FirebaseAuth.instance;

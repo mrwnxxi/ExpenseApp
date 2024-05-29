@@ -44,6 +44,7 @@ dependencies:
   firebase_core:
   firebase_auth:
   fluttertoast:
+  mockito:
 
 
 dev_dependencies:
@@ -52,6 +53,12 @@ dev_dependencies:
   build_runner:
   hive_generator:
   mockito: ^5.0.0
+  flutter_launcher_icons:
+flutter_icons:
+  image_path: "icons/expenseapplogo.png"
+  android: true
+  adaptive_icon_background: 0xFF283593
+  ios: true
 
 
 

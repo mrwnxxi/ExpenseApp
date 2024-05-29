@@ -1,13 +1,13 @@
-import 'package:expense/global/common/toast.dart';
+import 'package:expense/src/presentation/ui/summary_screen.dart';
+import 'package:expense/src/utils/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../provider/provider.dart';
+import '../../application/services/provider.dart';
 import 'add_expense.dart';
 import 'edit_expense.dart';
-import 'summary_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ExpenseListScreen extends StatefulWidget {
